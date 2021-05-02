@@ -15,6 +15,7 @@
 #include "TempSensor.h"
 #include "TimeStamp.h"
 #include "FileTool.h"
+#include "InputTools.h"
 
 
 #define FILENAME_SIZE 25
