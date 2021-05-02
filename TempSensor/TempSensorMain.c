@@ -17,7 +17,6 @@
 #include "FileTool.h"
 
 
-#define DATAPOINTS_MAX_SIZE 10
 #define FILENAME_SIZE 25
 
 int main () {
@@ -25,6 +24,7 @@ int main () {
 	char *filePtr = NULL;
 	char myFile[FILENAME_SIZE] = "temperature_readings.txt"; 
 	filePtr = myFile;
+	int DATAPOINTS_MAX_SIZE = 0;
 
 	
 	/*Main loop of the interface. 3 options that includes taking new measurements or printing out the contents of
@@ -49,13 +49,19 @@ int main () {
 		//Switch case for taking measurements and saving results to a file.
 		switch (input) {
 			case 'T': {
-				struct TempSensor *tempSensorPtr = NULL; 
+				struct TempSensor *tempSensorPtr = NULL;
+				char inputBuffer[3];
+				
+				printf("Please give the amount of datapoints you wish to take:");
+				fgets(inputBuffer, 3, stdin);
+				
+				DATAPOINTS_MAX_SIZE = atoi(inputBuffer);
 	
 				tempSensorPtr = malloc(DATAPOINTS_MAX_SIZE * sizeof(struct TempSensor));
 	
 				if (tempSensorPtr != NULL) {
 					printf("\n");
-					printf("Lets take temperature measurements every ten seconds.\n");
+					printf("Lets take %d temperature measurements every ten seconds.\n", DATAPOINTS_MAX_SIZE);
 		
 		
 					//For loop to create datapoints ie."Read the temperature"
