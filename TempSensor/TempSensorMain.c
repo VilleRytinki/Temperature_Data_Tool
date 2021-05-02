@@ -51,12 +51,34 @@ int main () {
 		switch (input) {
 			case 'T': {
 				struct TempSensor *tempSensorPtr = NULL;
-				char inputBuffer[3];
 				
-				printf("Please give the amount of datapoints you wish to take:");
-				fgets(inputBuffer, 3, stdin);
+				//int inputStatus = 0;//assume that user input is false
 				
-				DATAPOINTS_MAX_SIZE = atoi(inputBuffer);
+				while(1) {
+					char inputBuffer[3] = "";
+					char *inputPtr = NULL;
+					inputPtr = inputBuffer;
+					int numberOfChars = 0;
+					
+				
+					printf("Please give the amount of datapoints you wish to take:");
+					while ((c = getchar()) != '\n' && numberOfChars < 3) {
+						*inputPtr++ = c;
+						numberOfChars++;
+					}
+					
+					
+					int inputStatus = 0;
+					inputStatus = isNumbers(inputBuffer, 3);
+
+					if (inputStatus) {
+						DATAPOINTS_MAX_SIZE = atoi(inputBuffer);
+						break;
+					} else {
+						printf("Please input a number (Press -Enter- to continue).\n");
+						clearInputBuffer();
+					}
+				}
 	
 				tempSensorPtr = malloc(DATAPOINTS_MAX_SIZE * sizeof(struct TempSensor));
 	
